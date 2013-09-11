@@ -1,5 +1,6 @@
 package org.ldv.melun.sio.swingpac;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -19,6 +20,7 @@ import org.ldv.melun.sio.swingpac.utils.PackageUtil;
  * Définition de la scene du jeu et instanciation des objets. 
  * @author lycée Léonard de Vinci - Melun - SIO-SLAM
  */
+@SuppressWarnings("serial")
 public class FenetreMain extends JFrame implements ActionListener {
   // une constante (mot clé final)
   // c'est un moyen très pratique d'associer un écouteur d'événement
@@ -26,7 +28,7 @@ public class FenetreMain extends JFrame implements ActionListener {
   static final String ACTION_QUITTER = "Quitter";
 
   static final String ACTION_GO = "Go";
-
+  static final String ACTION_PAUSE = "Pause";
   private static final String PACKAGE_BIDULES = "org.ldv.melun.sio.swingpac.etudiants";
 
   private static final int TAILLE_BIDULE = 30;
@@ -81,7 +83,11 @@ public class FenetreMain extends JFrame implements ActionListener {
     mn.addActionListener(this);
     jeu.add(mn);
     menuBar.add(jeu);
-
+    JMenuItem pause = new JMenuItem("PAUSE");
+    pause.setActionCommand(ACTION_PAUSE);
+    pause.addActionListener(this);
+    jeu.add(pause);
+    
     // TODO : ajouter une commande Pause qui stoppe le timer de tous les objets
     // Bidule.
 
@@ -138,6 +144,14 @@ public class FenetreMain extends JFrame implements ActionListener {
       System.exit(0);
     } else if (action.equals(ACTION_GO)) {
       go();
+    }else if (action.equals(ACTION_PAUSE)){
+    	 for (Component obj : getContentPane().getComponents())
+    	      if (obj instanceof Bidule){
+    	    	  Bidule o = (Bidule) obj;
+    	    	  o.stop();
+    	      }
+    	    	 
+    	        
     }
   }
 

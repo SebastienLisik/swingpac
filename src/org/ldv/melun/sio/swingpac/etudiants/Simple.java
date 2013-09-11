@@ -8,8 +8,8 @@ public class Simple extends Bidule {
 
   
   public Simple() {
-    super("Simple");
-    setBackground(Color.GREEN);    
+    super("GREG");
+    setBackground(Color.BLACK);    
   }
 
   @Override
